@@ -1,21 +1,17 @@
-import Image from "next/image";
 import type { Product } from "@/data/types";
 import { StarRating } from "./StarRating";
 import { Badge } from "./Badge";
 import { ProductJsonLd } from "./ProductJsonLd";
+import { ProductGallery } from "./ProductGallery";
 
 export function ProductCard({ product }: { product: Product }) {
+  const images = product.images && product.images.length > 0 ? product.images : [product.image];
+
   return (
     <article className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-surface transition-shadow hover:shadow-lg">
       <ProductJsonLd product={product} />
       <div className="relative aspect-square overflow-hidden bg-background">
-        <Image
-          src={product.image}
-          alt={product.name}
-          fill
-          sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
-          className="object-cover transition-transform duration-300 group-hover:scale-105"
-        />
+        <ProductGallery images={images} alt={product.name} />
       </div>
       <div className="flex flex-1 flex-col gap-2 p-3">
         {product.badges && product.badges.length > 0 && (
