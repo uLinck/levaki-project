@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { Smartphone, Home, Sparkles, Dumbbell, Tag, type LucideIcon } from "lucide-react";
+import { Smartphone, Home, Sparkles, Dumbbell, Wrench, Tag, type LucideIcon } from "lucide-react";
 import { categories } from "@/data/categories";
 import { SearchBar } from "@/components/filters/SearchBar";
 import { ThemeToggle } from "./ThemeToggle";
 
-const iconMap: Record<string, LucideIcon> = { Smartphone, Home, Sparkles, Dumbbell };
+const iconMap: Record<string, LucideIcon> = { Smartphone, Home, Sparkles, Dumbbell, Wrench };
 
 export function Header() {
   return (

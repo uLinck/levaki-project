@@ -39,7 +39,10 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
   return (
     <div className="flex flex-col gap-4">
       <div>
-        <h1 className="font-display text-2xl font-bold text-foreground">{category.name}</h1>
+        <h1 className="flex items-center gap-2 font-display text-2xl font-bold text-foreground">
+          <span className="h-6 w-1.5 rounded-full bg-brand" aria-hidden />
+          {category.name}
+        </h1>
         {category.description && (
           <p className="mt-1 text-sm text-muted">{category.description}</p>
         )}

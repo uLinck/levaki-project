@@ -17,7 +17,8 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="font-display text-2xl font-bold text-foreground">
+      <h1 className="flex items-center gap-2 font-display text-2xl font-bold text-foreground">
+        <span className="h-6 w-1.5 rounded-full bg-ember" aria-hidden />
         {params.q ? `Resultados para "${params.q}"` : "Buscar produtos"}
       </h1>
       <Catalog products={products} categories={categories} searchParams={params} />

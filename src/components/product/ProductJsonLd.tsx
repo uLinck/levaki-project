@@ -7,7 +7,7 @@ export function ProductJsonLd({ product }: { product: Product }) {
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.name,
-    image: product.image,
+    image: product.images && product.images.length > 0 ? product.images : product.image,
     description: product.description ?? product.name,
     offers: {
       "@type": "Offer",
