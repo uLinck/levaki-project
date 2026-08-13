@@ -1,10 +1,15 @@
 import Link from "next/link";
 import { Smartphone, Home, Sparkles, Dumbbell, Wrench, Tag, type LucideIcon } from "lucide-react";
 import { categories } from "@/data/categories";
+import { products } from "@/data/products";
 import { SearchBar } from "@/components/filters/SearchBar";
 import { ThemeToggle } from "./ThemeToggle";
 
 const iconMap: Record<string, LucideIcon> = { Smartphone, Home, Sparkles, Dumbbell, Wrench };
+
+const categoriesWithProducts = categories.filter((category) =>
+  products.some((product) => product.categoryId === category.id)
+);
 
 export function Header() {
   return (
@@ -27,7 +32,7 @@ export function Header() {
       </div>
       <nav aria-label="Categorias" className="border-t border-border">
         <div className="mx-auto flex max-w-6xl gap-2 overflow-x-auto px-4 py-2">
-          {categories.map((category) => {
+          {categoriesWithProducts.map((category) => {
             const Icon = iconMap[category.icon ?? ""] ?? Tag;
             return (
               <Link
