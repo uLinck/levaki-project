@@ -32,4 +32,11 @@ export const categories: Category[] = [
     icon: "Dumbbell",
     description: "Equipamentos e acessórios para treinar.",
   },
+  {
+    id: "ferramentas",
+    name: "Ferramentas",
+    slug: "ferramentas",
+    icon: "Wrench",
+    description: "Ferramentas e equipamentos para casa e trabalho.",
+  },
 ];
