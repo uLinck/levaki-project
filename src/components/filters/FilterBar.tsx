@@ -5,14 +5,14 @@ import { Select } from "@/components/ui/Select";
 import type { Category } from "@/data/types";
 
 const ratingOptions = [4.5, 4, 3.5, 3];
-const badgeOptions = ["Mais vendido", "Frete grátis"];
 
 type FilterBarProps = {
   categories: Category[];
+  badgeOptions: string[];
   showCategoryFilter?: boolean;
 };
 
-export function FilterBar({ categories, showCategoryFilter = true }: FilterBarProps) {
+export function FilterBar({ categories, badgeOptions, showCategoryFilter = true }: FilterBarProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -58,18 +58,20 @@ export function FilterBar({ categories, showCategoryFilter = true }: FilterBarPr
         ))}
       </Select>
 
-      <Select
-        aria-label="Selo do produto"
-        value={searchParams.get("badge") ?? ""}
-        onChange={(event) => updateParam("badge", event.target.value)}
-      >
-        <option value="">Todos os produtos</option>
-        {badgeOptions.map((badge) => (
-          <option key={badge} value={badge}>
-            {badge}
-          </option>
-        ))}
-      </Select>
+      {badgeOptions.length > 0 && (
+        <Select
+          aria-label="Selo do produto"
+          value={searchParams.get("badge") ?? ""}
+          onChange={(event) => updateParam("badge", event.target.value)}
+        >
+          <option value="">Todos os produtos</option>
+          {badgeOptions.map((badge) => (
+            <option key={badge} value={badge}>
+              {badge}
+            </option>
+          ))}
+        </Select>
+      )}
 
       {hasActiveFilters && (
         <button

@@ -46,11 +46,16 @@ export function Catalog({ products, categories, searchParams, categoryId }: Cata
     : "relevancia";
 
   const results = applyCatalog(products, filters, sort);
+  const badgeOptions = Array.from(new Set(products.flatMap((product) => product.badges ?? [])));
 
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-border bg-surface/60 p-2.5">
-        <FilterBar categories={categories} showCategoryFilter={!categoryId} />
+        <FilterBar
+          categories={categories}
+          badgeOptions={badgeOptions}
+          showCategoryFilter={!categoryId}
+        />
         <SortSelect />
       </div>
 
