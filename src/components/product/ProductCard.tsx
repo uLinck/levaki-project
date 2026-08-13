@@ -1,23 +1,14 @@
 import Image from "next/image";
 import type { Product } from "@/data/types";
-import { formatDiscountPercent } from "@/lib/format";
 import { StarRating } from "./StarRating";
-import { PriceTag } from "./PriceTag";
 import { Badge } from "./Badge";
 import { ProductJsonLd } from "./ProductJsonLd";
 
 export function ProductCard({ product }: { product: Product }) {
-  const hasDiscount = product.originalPrice !== undefined && product.originalPrice > product.price;
-
   return (
     <article className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-surface transition-shadow hover:shadow-lg">
       <ProductJsonLd product={product} />
       <div className="relative aspect-square overflow-hidden bg-background">
-        {hasDiscount && (
-          <span className="absolute left-0 top-3 z-10 bg-ember px-3 py-1 text-xs font-bold text-ember-foreground shadow-sm [clip-path:polygon(0_0,100%_0,85%_50%,100%_100%,0_100%)]">
-            -{formatDiscountPercent(product.price, product.originalPrice as number)}%
-          </span>
-        )}
         <Image
           src={product.image}
           alt={product.name}
@@ -38,11 +29,6 @@ export function ProductCard({ product }: { product: Product }) {
           {product.name}
         </h3>
         <StarRating rating={product.rating} reviewCount={product.reviewCount} />
-        <PriceTag
-          price={product.price}
-          originalPrice={product.originalPrice}
-          currency={product.currency}
-        />
         <a
           href={product.affiliateLink}
           target="_blank"

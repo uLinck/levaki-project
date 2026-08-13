@@ -5,12 +5,6 @@ import { Select } from "@/components/ui/Select";
 import type { Category } from "@/data/types";
 
 const ratingOptions = [4.5, 4, 3.5, 3];
-const priceOptions = [
-  { value: "50", label: "Até R$ 50" },
-  { value: "100", label: "Até R$ 100" },
-  { value: "200", label: "Até R$ 200" },
-  { value: "500", label: "Até R$ 500" },
-];
 const badgeOptions = ["Mais vendido", "Frete grátis"];
 
 type FilterBarProps = {
@@ -30,7 +24,7 @@ export function FilterBar({ categories, showCategoryFilter = true }: FilterBarPr
     router.push(params.size ? `${pathname}?${params.toString()}` : pathname);
   }
 
-  const hasActiveFilters = ["categoria", "minRating", "maxPrice", "badge"].some((key) =>
+  const hasActiveFilters = ["categoria", "minRating", "badge"].some((key) =>
     searchParams.get(key)
   );
 
@@ -60,19 +54,6 @@ export function FilterBar({ categories, showCategoryFilter = true }: FilterBarPr
         {ratingOptions.map((rating) => (
           <option key={rating} value={rating}>
             {rating}★ ou mais
-          </option>
-        ))}
-      </Select>
-
-      <Select
-        aria-label="Faixa de preço"
-        value={searchParams.get("maxPrice") ?? ""}
-        onChange={(event) => updateParam("maxPrice", event.target.value)}
-      >
-        <option value="">Qualquer preço</option>
-        {priceOptions.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
           </option>
         ))}
       </Select>

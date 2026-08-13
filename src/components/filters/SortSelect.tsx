@@ -6,8 +6,6 @@ import type { SortOption } from "@/lib/filters";
 
 const options: { value: SortOption; label: string }[] = [
   { value: "relevancia", label: "Relevância" },
-  { value: "menor-preco", label: "Menor preço" },
-  { value: "maior-preco", label: "Maior preço" },
   { value: "melhor-avaliado", label: "Mais bem avaliado" },
   { value: "mais-avaliacoes", label: "Mais avaliações" },
 ];
