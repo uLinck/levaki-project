@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
@@ -25,7 +26,15 @@ export function ProductLightbox({ images, index, alt, onNavigate, onClose }: Pro
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [index, images.length, onNavigate, onClose]);
 
-  return (
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, []);
+
+  return createPortal(
     <div
       role="dialog"
       aria-modal="true"
@@ -93,6 +102,7 @@ export function ProductLightbox({ images, index, alt, onNavigate, onClose }: Pro
           </>
         )}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
