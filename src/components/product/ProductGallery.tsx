@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, ZoomIn } from "lucide-react";
 import { cn } from "@/lib/cn";
+import { ProductLightbox } from "./ProductLightbox";
 
 type ProductGalleryProps = {
   images: string[];
@@ -15,6 +16,7 @@ const SWIPE_THRESHOLD = 40;
 export function ProductGallery({ images, alt }: ProductGalleryProps) {
   const [index, setIndex] = useState(0);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
 
   const hasMultiple = images.length > 1;
 
@@ -34,13 +36,23 @@ export function ProductGallery({ images, alt }: ProductGalleryProps) {
         setTouchStartX(null);
       }}
     >
-      <Image
-        src={images[index]}
-        alt={alt}
-        fill
-        sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
-        className="object-cover transition-transform duration-300 group-hover:scale-105"
-      />
+      <button
+        type="button"
+        aria-label="Ampliar foto"
+        onClick={() => setLightboxOpen(true)}
+        className="absolute inset-0 size-full cursor-zoom-in"
+      >
+        <Image
+          src={images[index]}
+          alt={alt}
+          fill
+          sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
+        />
+        <span className="absolute bottom-2 right-2 z-10 flex size-7 items-center justify-center rounded-full bg-background/80 text-foreground opacity-0 shadow-sm backdrop-blur transition-opacity group-hover:opacity-100">
+          <ZoomIn className="size-3.5" />
+        </span>
+      </button>
 
       {hasMultiple && (
         <>
@@ -90,6 +102,16 @@ export function ProductGallery({ images, alt }: ProductGalleryProps) {
             ))}
           </div>
         </>
+      )}
+
+      {lightboxOpen && (
+        <ProductLightbox
+          images={images}
+          index={index}
+          alt={alt}
+          onNavigate={setIndex}
+          onClose={() => setLightboxOpen(false)}
+        />
       )}
     </div>
   );
